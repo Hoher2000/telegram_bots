@@ -1,10 +1,14 @@
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
+import sys
 
+sys.path.insert(0, '/home/paulina/workspace/github.com/Hoher2000/telegram_bots')
+from __token import token
 
 # Вместо BOT TOKEN HERE нужно вставить токен вашего бота, полученный у @BotFather
-BOT_TOKEN = '6825404817:AAGlZ2jhBU-wcxFGi2xIq9JXDpC49MgM-SU'
+
+BOT_TOKEN = token
 
 # Создаем объекты бота и диспетчера
 bot = Bot(token=BOT_TOKEN)
@@ -31,6 +35,7 @@ async def process_help_command(message: Message):
 # @dp.message()
 async def send_echo(message: Message):
     try:
+        print(message.model_dump_json(indent=4, exclude_none=True))
         await message.send_copy(chat_id=message.chat.id)
     except TypeError:
         await message.reply(text='Method "send_copy" is not support this update type')
